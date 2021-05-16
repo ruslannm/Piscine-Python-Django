@@ -26,27 +26,26 @@ crossorigin="anonymous"0> -->
         {% for forum in forums %}
             <div class="card box container">
                 <h5 class="card-title">
-                    <a href='{{forum.topic}}'><h3>{{forum.topic}}</h3></a> 
+                    <h3>{{forum.topic}}</h3>
                     <div class="card-body container">
-                        <p>Description: {{forum.description}}</p>
+                        <p>Topic description: {{forum.description}}</p>
                         </h5>
                         <hr>
-                        <p> Name: {{forum.name}}</p>
+                        <p> Username: {{forum.name}}</p>
                         <p> Date: {{forum.date_created}}</p>
                         <hr>     
-                        <h4>Discussions</h4>
-                        {%  for discuss in discussions%}
+                        <h4>Comments</h4>
+                        {%  for discuss in discussions %}
                             {% for objs in discuss %}  
                                 {% if objs.forum == forum %}
-                                    {{objs.discuss}}
-
+                                <p> -> {{ objs.discuss }}</p>
                                 {% endif %}
                             {%endfor%}
                         {%endfor%}
                         <form method="POST" action="{% url 'addInDiscussion' %}">
                             {% csrf_token %}
                         <button class="btn btn-success" style="width:fit-content; padding: 4px; 
-                        margin:10px;">Add more</button>
+                        margin:10px;">Start discussion</button>
                         </form>
                     </div>
                 </div>
