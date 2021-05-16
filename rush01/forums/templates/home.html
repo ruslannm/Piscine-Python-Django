@@ -41,13 +41,14 @@ crossorigin="anonymous"0> -->
                             {% for objs in discuss %}  
                                 {% if objs.forum == forum %}
                                     {{objs.discuss}}
-
+                                    <br>
                                 {% endif %}
                             {%endfor%}
                         {%endfor%}
                         <form method="POST" action="{% url 'addInDiscussion' %}">
                             {% csrf_token %}
                             {% if user.is_authenticated %}
+                            <input type="hidden" name="forum" value="{{ forum.id }}">
                         <button class="btn btn-success" style="width:fit-content; padding: 4px; 
                         margin:10px;">Start discussion</button>
                         {% endif %}

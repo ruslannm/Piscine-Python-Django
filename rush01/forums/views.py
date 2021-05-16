@@ -27,7 +27,7 @@ def addInForum(request):
         form = CreateInForum(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            print(request.user.name,request.user.email )
+#            print(request.user.name,request.user.email )
             f = forum.objects.create(
                 name=str(request.user.username),
                 email=request.user.email,
@@ -36,10 +36,15 @@ def addInForum(request):
                 description=data['description'],
                 )
             return redirect('/')
+
     context ={'form':form}
     return render(request,'addInForum.html',context)
  
+
 def addInDiscussion(request):
+    if not request.user.is_authenticated:
+        return redirect('/')  
+    print(request.POST)
     form = CreateInDiscussion()
     if request.method == 'POST':
         form = CreateInDiscussion(request.POST)

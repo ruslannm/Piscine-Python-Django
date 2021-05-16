@@ -18,6 +18,7 @@ class forum(models.Model):
 class Discussion(models.Model):
     forum = models.ForeignKey(forum,blank=True,on_delete=models.CASCADE)
     discuss = models.CharField(max_length=1000)
- 
+#    author = models.ForeignKey(settings.AUTH_USER_MODEL, default=None, on_delete=models.CASCADE)
+    
     def __str__(self):
-        return str(self.forum)
+        return str(self.forum) #+ ', by ' + str(self.author.username)
