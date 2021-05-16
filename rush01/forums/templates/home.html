@@ -13,23 +13,15 @@ crossorigin="anonymous"0> -->
 </style>
 {% endblock %}
 {% block content %}
-<<<<<<< HEAD
     <h1>Rush01 Forum Homepage</h1>
     <h2 class="jumbotron">
-=======
-      <h1>Rush01 Forum Homepage</h1>
-      <h2 class="jumbotron">
->>>>>>> fad4359e9ab226a8954e625f00515649ddd92fe2
         Currently active forums: {{count}}
         <form method="POST" action="{% url 'addInForum' %}">
             {% csrf_token %}
         {% if user.is_authenticated %}
         <button class="btn btn-success" style="width:fit-content; padding: 4px; 
         margin: 10px;">Add more</button>
-<<<<<<< HEAD
         {% endif %}
-=======
->>>>>>> fad4359e9ab226a8954e625f00515649ddd92fe2
         </form>
     </h2>
     <div class="card-columns" style="padding: 10px; margin: 20px;"></div>

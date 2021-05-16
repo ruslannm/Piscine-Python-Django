@@ -34,7 +34,6 @@ def addInForum(request):
                 author=request.user,
                 topic=data['topic'],
                 description=data['description'],
-                link=data['link'],
                 )
             return redirect('/')
     context ={'form':form}
