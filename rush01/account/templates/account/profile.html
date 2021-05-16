@@ -1,9 +1,8 @@
 {% extends 'base.html' %}
-{% block title %}
-Rush01-Profile
+{% block head %}
+<title>Rush01-Profile</title>
 {% endblock %}
 {% block content %}
-      {% include 'nav.html' %} 
       <h1>Rush01-Profile "{{ user }}"</h1>
       <h2>Profile:</h2>
       <p> Name: {{ data.name }} </p>

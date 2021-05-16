@@ -3,17 +3,16 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>
-            {% block title %}
-            Day06
-            {% endblock %}
-        </title>
+        {% block head %}
+            <title>Rush01</title>
+        {% endblock %}
         {% load bootstrap3 %}
         {% bootstrap_css %}
         <script src="{% bootstrap_jquery_url %}"></script>
         {% bootstrap_javascript %}
     </head>
     <body>
+        {% include 'nav.html' %} 
         {% block content %}
         {% endblock %}
     </body>
