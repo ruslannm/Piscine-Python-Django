@@ -10,7 +10,9 @@ Rush01-Profile
       <p> Surname: {{ data.surname }} </p>
       <p> Email: {{ data.email }} </p>
       <p> Description: {{ data.description }} </p>
-
+      {% if  data.is_staff %}
+      <p> Admin: {{ data.is_staff }} </p>
+      {% endif %}
       <h2>Change:</h2>
       <div>
             <form method="POST">

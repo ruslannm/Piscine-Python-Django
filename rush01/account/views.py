@@ -46,7 +46,7 @@ def profile(request):
             return redirect('/')
     form = ChangeForm()
     data = {'description': user_changed.description, 'email': user_changed.email,
-        'name': user_changed.name, 'surname': user_changed.surname, 
+        'name': user_changed.name, 'surname': user_changed.surname, 'is_staff': user_changed.is_staff,
         }
     response = render(request, 'account/profile.html', {'form': form, 'data': data,})
     return response
