@@ -1,18 +1,54 @@
 from django.shortcuts import render, redirect
 from django.conf import settings
-from django.contrib.auth.models import User
+#from django.contrib.auth.models import User
 from django.contrib import auth
-from .forms import RegistrationForm, LoginForm
-from django.forms.models import model_to_dict
+from .forms import CustomUserCreationForm, LoginForm, CustomUserChangeForm, ChangeForm
+from .models import CustomUser
+# from django.forms.models import model_to_dict
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
     response = render(request, 'account/index.html')
     return response
 
-
+#@login_required()
 def profile(request):
-    response = render(request, 'account/profile.html')
+    if not request.user.is_authenticated:
+        return redirect('/')        
+    u = CustomUser.objects.filter(username=request.user)
+    if u:
+        user_changed = u[0]
+    else:
+        print('error')
+        return redirect('/')
+    if request.method == 'POST':
+        form = ChangeForm(request.POST)
+        is_changed = 0
+        new_name = request.POST['name']
+        if new_name:
+            user_changed.name = new_name
+            is_changed += 1
+        new_surname = request.POST['surname']
+        if new_surname:
+            user_changed.surname = new_surname
+            is_changed += 1
+        new_description = request.POST['description']
+        if  new_description:
+            user_changed.description = new_description
+            is_changed += 1
+        new_email = request.POST['email']
+        if  new_email:
+            user_changed.email = new_email
+            is_changed += 1
+        if is_changed:
+            user_changed.save()
+            return redirect('/')
+    form = ChangeForm()
+    data = {'description': user_changed.description, 'email': user_changed.email,
+        'name': user_changed.name, 'surname': user_changed.surname, 
+        }
+    response = render(request, 'account/profile.html', {'form': form, 'data': data,})
     return response
 
 
@@ -21,28 +57,29 @@ def registration(request):
     if request.user.is_authenticated:
         return redirect('/')        
     if request.method == 'POST':
-        form = RegistrationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
+            print(data)
             data_valid = 1
-            u = User.objects.filter(username=data['username'])
+            u = CustomUser.objects.filter(username=data['username'])
             if u:
                 form.add_error('username', "That name\'s taken.")
                 data_valid = 0
-            if data['password'] != data['password_confirmation']:
+            if data['password1'] != data['password2']:
                 form.add_error('password', "Passwords don\'t match")
                 data_valid = 0
             if data_valid:
-                new_user = User.objects.create_user(
+                new_user = CustomUser.objects.create_user(
                     username=data['username'],
-                    password=data['password'])
+                    password=data['password1'])
                 new_user.save()
                 auth.login(request, new_user)
                 return redirect('/')
     else:
-        form = RegistrationForm()
+        form = CustomUserCreationForm()
     response = render(request, 'account/registration.html', 
-        {'user_anonymous': request.user, 'form': form,})
+        {'form': form,})
     return response
 
 
@@ -53,7 +90,7 @@ def login(request):
         form = LoginForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            u = User.objects.filter(username=data['username'])
+            u = CustomUser.objects.filter(username=data['username'])
             if u:
                 user = auth.authenticate(username=data['username'], password=data['password'])
                 if user and user.is_active:
@@ -66,7 +103,7 @@ def login(request):
     else:
         form = LoginForm()
     response = render(request, 'account/login.html', 
-        {'user_anonymous': request.user, 'form': form,})
+        {'form': form,})
     return response
 
 

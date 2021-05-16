@@ -4,5 +4,20 @@ Rush01-Profile
 {% endblock %}
 {% block content %}
       {% include 'nav.html' %} 
-      <h1>Rush01-Profile</h1>
+      <h1>Rush01-Profile "{{ user }}"</h1>
+      <h2>Profile:</h2>
+      <p> Name: {{ data.name }} </p>
+      <p> Surname: {{ data.surname }} </p>
+      <p> Email: {{ data.email }} </p>
+      <p> Description: {{ data.description }} </p>
+
+      <h2>Change:</h2>
+      <div>
+            <form method="POST">
+                  {% csrf_token %}
+                  {{ form.as_p }}
+                  <input type='submit' value='Submit'/>
+            </form>
+      </div>
+
 {% endblock %}

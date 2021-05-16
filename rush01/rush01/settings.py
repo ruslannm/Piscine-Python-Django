@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'rush01.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'djangotraining',
+        'NAME': 'rush01',
         'USER': 'djangouser',
         'PASSWORD': 'secret',
         'HOST': 'localhost',
@@ -132,6 +132,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# add rgero
+
+AUTH_USER_MODEL = 'account.CustomUser' 
 
 BOOTSTRAP3 = {
 
