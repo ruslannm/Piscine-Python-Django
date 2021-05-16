@@ -1,9 +1,10 @@
-from django.shortcuts import render
+# from django.shortcuts import render
 
 # Create your views here.
 from django.shortcuts import render,redirect
 from .models import * 
 from .forms import * 
+# from django.conf import settings
 # Create your views here.
  
 def home(request):
@@ -19,11 +20,22 @@ def home(request):
     return render(request,'home.html',context)
  
 def addInForum(request):
+    if not request.user.is_authenticated:
+        return redirect('/')  
     form = CreateInForum()
     if request.method == 'POST':
         form = CreateInForum(request.POST)
         if form.is_valid():
-            form.save()
+            data = form.cleaned_data
+            print(request.user.name,request.user.email )
+            f = forum.objects.create(
+                name=str(request.user.username),
+                email=request.user.email,
+                author=request.user,
+                topic=data['topic'],
+                description=data['description'],
+                link=data['link'],
+                )
             return redirect('/')
     context ={'form':form}
     return render(request,'addInForum.html',context)

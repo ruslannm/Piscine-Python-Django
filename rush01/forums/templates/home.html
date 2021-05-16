@@ -13,40 +13,44 @@ crossorigin="anonymous"0> -->
 </style>
 {% endblock %}
 {% block content %}
-      <h1>Rush01-Homepage</h1>
-      <h2 class="jumbotron">
+    <h1>Rush01 Forum Homepage</h1>
+    <h2 class="jumbotron">
         Currently active forums: {{count}}
         <form method="POST" action="{% url 'addInForum' %}">
             {% csrf_token %}
+        {% if user.is_authenticated %}
         <button class="btn btn-success" style="width:fit-content; padding: 4px; 
-        margin:10px;">Add more</button>
+        margin: 10px;">Add more</button>
+        {% endif %}
         </form>
     </h2>
     <div class="card-columns" style="padding: 10px; margin: 20px;"></div>
-        {%for forum in forums %}
+        {% for forum in forums %}
             <div class="card box container">
                 <br>
                 <h5 class="card-title">
-                    <a href='{{forum.link}}'><h3>{{forum.topic}}</h3></a> 
+                    <a href='{{forum.topic}}'><h3>{{forum.topic}}</h3></a> 
                     <div class="card-body container">
-                        <p>{{forum.description}}</p>
+                        <p>Description: {{forum.description}}</p>
                         </h5>
                         <hr>
                         <p> By: {{forum.name}}</p>
                         <hr>     
-                        <h4>Views from other users</h4>
-                        {%for discuss in discussions%}
-                        {%for objs in discuss%}  
-                        {% if objs.forum == forum %}
-                            {{objs.discuss}}
-                            <br>
-                        {% endif %}
-                        {%endfor%}
+                        <h4>Discussions</h4>
+                        {%  for discuss in discussions%}
+                            {% for objs in discuss %}  
+                                {% if objs.forum == forum %}
+                                    {{objs.discuss}}
+
+                                {% endif %}
+                            {%endfor%}
                         {%endfor%}
                         <form method="POST" action="{% url 'addInDiscussion' %}">
                             {% csrf_token %}
+                            {% if user.is_authenticated %}
                         <button class="btn btn-success" style="width:fit-content; padding: 4px; 
                         margin:10px;">Add more</button>
+                        {% endif %}
                         </form>
                     </div>
                 </div>

@@ -17,6 +17,9 @@
 <form action="{% url 'addInForum' %}" method="POST">
     {% csrf_token %}
     {{form.as_p}}
+<!--    <input type="hidden" name="author" value="{{ user.id }}">
+  <input type="hidden" name="user_email" value="{{ user.email }}">
+-->
     <input type="submit" class="btn btn-success" value="submit">
 </form>
 {% endblock %}
