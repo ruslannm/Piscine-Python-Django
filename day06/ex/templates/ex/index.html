@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}
+Day06-Homepage
+{% endblock %}
+{% block content %}
+ {% include 'nav.html' %} 
+      <h1>Homepage</h1>
+      {% if user.is_authenticated %}
+      <h2>Enter a new tip</h2>
+      <div>
+            <form method="POST">
+                  {% csrf_token %}
+                  {{ form }}
+                  <input type='submit' class="btn btn-default" value='Submit'>
+            </form>
+      </div>
+      {% endif %}
+      <h2>Tips</h2>
+      <ul class="list-group">
+            {% for tip in tips %}
+            <li class="list-group-item">
+                  {{ tip }}
+                  {% if user.is_authenticated %}
+                  <form method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="id" value="{{ tip.id }}">
+                        {% if tip.author == request.user.username or perms.ex.delete_tip %}
+                              <input type="submit" class="btn btn-default"  name="delete" value="Delete">
+                        {% else %}
+                              <input type="submit" class="btn btn-default"  name="delete" value="Delete" disabled>                                          
+                        {% endif %}
+                        <input type="submit" class="btn btn-default" name="upvote" value="Upvote">
+                        <input type="submit" class="btn btn-default" name="downvote" value="Downvote">
+                  </form>
+                  {% else  %}
+                  <div>
+                  <input type="submit" class="btn btn-default"  name="delete" value="Delete" disabled>
+                        <input type="submit" class="btn btn-default" name="upvote" value="Upvote" disabled>
+                        <input type="submit" class="btn btn-default" name="downvote" value="Downvote" disabled>
+                        </div>      
+                  {% endif %}
+            </li>
+            {% endfor %}
+      </ul>
+{% endblock %}

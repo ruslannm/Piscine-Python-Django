@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>
+            Ex07: update.
+        </title>
+    </head>
+    <body>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <select name='select' style="width: 200px;">
+                {% for row in data %}
+                    <option value="{{ row.episode_nb }}">{{ row.title }}</option>
+                {% endfor %}
+            </select>
+            {{ form }}
+            <button type="submit">Update</button>
+        </form>
+    </body>
+</html>

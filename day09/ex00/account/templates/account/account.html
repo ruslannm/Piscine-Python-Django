@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %}
+Day09-Ex00
+{% endblock %}
+{% block content %}
+{% include 'nav.html' %} 
+<h1 id='title'>Logged as 'user'</h1>
+<input id='username' type="text" caption="Name"></input>
+<input id='password' type="password"></input>
+<button id='login'>Login</button>
+<script type="text/javascript">
+       console.log('1');
+       $( document ).ready(function() {
+       $('#login').click(function(){
+              console.log('1');
+              $.ajax({
+                     type: "POST",
+                     url: "get_element/",
+                     dataType: "json",
+                     data: {
+                            'username': $('#username').val(),
+                            'password': $('#password').val(),
+                     },
+                     success: function(data){
+                            $('#title').text("Logged as " + data.user);
+                            console.log('success!');
+                            $('#login').remove();
+                            $('#logout').add();
+                     }
+              });
+       });
+       /* CSFR */
+       function getCookie(name) {
+              var cookieValue = null;
+              var i = 0;
+              if (document.cookie && document.cookie !== ''){
+                     var cookies = document.cookie.split(';');
+                     for (i; i < cookies.length; i++) {
+                            var cookie =jQuery.trim(cookies[i]);
+                            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                   cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                   break;
+                            }
+                     }
+              }
+              return cookieValue;
+       }
+       var csrftoken = getCookie('csrftoken');
+       function csrfSafeMethod(method) {
+              return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+       }
+       $.ajaxSetup({
+              crossDomain: false,
+              beforeSend: function(xhr, settings) {
+                     if (!csrfSafeMethod(settings.type)) {
+                            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                     }
+              }
+       });
+})
+</script>
+
+{% endblock %}

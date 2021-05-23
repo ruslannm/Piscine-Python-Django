@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>
+    {{ title }}
+</title>
+{% endblock %}
+{% load static %}
+{% block style %}
+<link type="text/css" rel="stylesheet" href="{% static stylesheet %}"></link>
+{% endblock %}
+{% block content %}
+<h1>{{ title }}</h1>
+<iframe frameborder=0 src="{{ iframe_url }}"></iframe>
+{% endblock %}

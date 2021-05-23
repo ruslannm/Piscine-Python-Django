@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>
+            Ex05: remove.
+        </title>
+    </head>
+    <body>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ form }}
+            <select name='select'>
+                {% for row in data %}
+                <option value="{{ row.episode_nb }}">{{ row.title }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Remove</button>
+        </form>
+    </body>
+</html>

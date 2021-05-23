@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>
+            Ex07: Display.
+        </title>
+        <style>
+            table {
+                border-collapse: collapse;
+                }
+            th, td {border: 1px solid black; padding:10px; vertical-align:top;}                
+            </style>
+    </head>
+    <body>
+        <table>
+            <tr>
+                <th>episode_nb</th>
+                <th>title</th>
+                <th>opening_crawl</th>
+                <th>director</th>
+                <th>producer</th>
+                <th>release_date</th>
+                <th>created</th>
+                <th>updated</th>                
+            </tr>
+            {% for row in data %}
+            <tr>
+                <td>{{ row.episode_nb }}</td>
+                <td>{{ row.title }}</td>                
+                <td>{{ row.opening_crawl }}</td>
+                <td>{{ row.director }}</td>
+                <td>{{ row.producer }}</td>
+                <td>{{ row.release_date }}</td>
+                <td>{{ row.created }}</td>
+                <td>{{ row.updated }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>

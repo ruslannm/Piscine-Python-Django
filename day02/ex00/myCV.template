@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>{title}</title>
+		<style>
+			table {
+				border-collapse: collapse;
+			}
+			th {
+				border: 1px solid;
+				border-color: green;
+			}
+			td {
+				border: 1px solid;
+				border-color: green;
+			}
+		</style>
+	</head>	
+	<body>
+		<h1>{position}</h1>
+		<table>
+			<tr>
+				<th>Category</th>
+				<th>Value</th>
+			</tr>
+			<tr>
+				<td>Name</td>
+				<td>{name}</td>
+			</tr>
+			<tr>
+				<td>Surname</td>
+				<td>{surname}</td>
+			</tr>
+			<tr>
+				<td>Age</td>
+				<td>{age}</td>
+			</tr>
+			<tr>
+				<td>Profession</td>
+				<td>{profession}</td>
+			</tr>
+			<tr>
+				<td>Address</td>
+				<td style="border: 2px solid; border-color: #424242">{address}</td>
+			</tr>
+		</table>
+	</body>	
+</html>

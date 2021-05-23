@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}
+Day08-Ex00
+{% endblock %}
+{% block content %}
+{% include 'nav.html' %} 
+<h1>Day08-Ex00</h1>
+<h2>Add image</h2>
+    <form class="form-group" enctype="multipart/form-data" method="post" action="{% url 'add_image' %}">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="btn btn-primary" type="submit">Add</button>
+    </form>
+<h2>Images:</h2>
+    <div class="row">
+{% for image in object_list %}
+<div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img src="{{ image.image.url }}" alt="{{ image.title }}">
+      <div class="caption">
+        <p>{{ image.title }}</p>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+</div>  
+{% endblock %}

@@ -1,0 +1,20 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>moviedex</title>
+        {% load static %}
+        <link type="text/css" rel="stylesheet" href="{% static 'style.css' %}"></link>
+    </head>
+    <body>
+        {% if movies %}
+        <h2>moviedex/:</h2>
+        <ul>
+            {% for line in movies %}
+                <li>{{ line[0] }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </body>
+</html>
